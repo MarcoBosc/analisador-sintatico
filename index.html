@@ -10,7 +10,7 @@
           position: static;
         }
       
-        @media (min-height: 700px) {
+        @media (min-height: 1000px) {
           .sticky-buttons.fixed {
             position: fixed;
             bottom: 20px;
@@ -36,12 +36,12 @@
       
         <!-- Botão de gerar sentença -->
         <div class="mb-4">
-          <button type="button" class="btn btn-success">Gerar Sentença</button>
+          <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#sentencaModal">Gerar Sentença</button>
         </div>
       
         <!-- Botão mostrar gramática -->
         <div class="mb-3">
-            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#gramaticaModal">
             Mostrar Gramática
             </button>
         </div>
@@ -53,19 +53,18 @@
         </div>
   
         <!-- Tabela Top-Down -->
-
         <div class="table-responsive mt-3">
             <table class="table table-bordered table-hover text-center align-middle">
               <thead class="table-light">
                 <tr>
-                  <th>Entrada</th>
                   <th>Pilha</th>
+                  <th>Entrada</th>
                   <th>Ação</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>-</td>
+                  <td>$S</td>
                   <td>-</td>
                   <td>-</td>
                 </tr>
@@ -73,15 +72,82 @@
             </table>
           </div>
 
-
-
-
-      <!-- Modal Gramática-->
-      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <!-- Modal Gerar sentença-->
+      <div class="modal fade" id="sentencaModal" tabindex="-1" role="dialog" aria-labelledby="sentencaModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Informações da Gramática</h5>
+              <h5 class="modal-title" id="sentencaModalLabel">Gerar sentença</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="alert alert-info" role="alert">
+                Clique na tabela para realizar as derivações.
+              </div>
+              <h2>Gramática</h2>
+              <table class="table table-bordered bg-white">
+                <thead class="table-light">
+                  <tr>
+                    <th scope="col">Não Terminal</th>
+                    <th scope="col">Produção 1</th>
+                    <th scope="col">Produção 2</th>
+                    <th scope="col">Produção 3</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="table-primary" id="S">
+                    <td><strong>S::=</strong></td>
+                    <td>aA</td>
+                    <td>-</td>
+                    <td>-</td>
+                  </tr>
+                  <tr id="A">
+                    <td><strong>A::=</strong></td>
+                    <td>bBc</td>
+                    <td>aCb</td>
+                    <td>dDc</td>
+                  </tr>
+                  <tr id="B">
+                    <td><strong>B::=</strong></td>
+                    <td>aDb</td>
+                    <td>Cd</td>
+                    <td>-</td>
+                  </tr>
+                  <tr id="C">
+                    <td><strong>C::=</strong></td>
+                    <td>bSB</td>
+                    <td>cAd</td>
+                    <td>-</td>
+                  </tr>
+                  <tr id="D">
+                    <td><strong>D::=</strong></td>
+                    <td>dBa</td>
+                    <td>ε</td>
+                    <td>-</td>
+                  </tr>
+                </tbody>
+              </table>              
+            </div>
+
+            <div class="mb-3 w-100 d-flex flex-column align-items-center justify-content-center" style="max-width: 500px;">
+              <label for="sentencaInputModal" class="form-label">Sentença</label>
+              <input type="text" class="form-control" id="sentencaInputModal" placeholder="aabacab..." aria-label="Campo de entrada de sentença" style="max-width: 400px;">
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+              <button type="button" class="btn btn-primary" disabled>Usar sentença</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Gramática-->
+      <div class="modal fade" id="gramaticaModal" tabindex="-1" role="dialog" aria-labelledby="gramaticaModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="gramaticaModalLabel">Informações da Gramática</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
               </button>
             </div>
@@ -187,6 +253,7 @@
             $('#myInput').trigger('focus')
         })
     </script>
+    <script src="/scripts/gerarSentenca.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
 </body>
 </html>
