@@ -36,7 +36,6 @@ document.addEventListener("DOMContentLoaded", function () {
     nextStep.addEventListener('click', () => {
         if (finished || !lastAction) return;
         index ++;
-        // Aplica a última ação
         const top = stack[stack.length - 1];
         const current = entry[0];
 
@@ -56,14 +55,12 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        // Verifica se a sentença foi reconhecida
         if (stack.length === 1 && stack[0] === "$" && entry[0] === "$") {
             renderRow(["$"], ["$"], `Sentença reconhecida em ${index} itereções!`);
             finished = true;
             return;
         }
 
-        // Define a próxima ação e mostra o novo estado
         const newTop = stack[stack.length - 1];
         const newCurrent = entry[0];
 
@@ -94,6 +91,5 @@ document.addEventListener("DOMContentLoaded", function () {
         tbody.appendChild(tr);
     }
 
-    // Inicializa com mensagem vazia
     renderRow(["$S"], ["-$"], "Nenhuma sentença definida.");
 });
