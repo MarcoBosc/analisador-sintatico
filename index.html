@@ -53,13 +53,13 @@
 
     <!-- Botões Gerar Tudo e Próximo Passo -->
     <div class="sticky-buttons fixed d-flex gap-2">
-      <button type="button" class="btn btn-warning">Gerar Tudo</button>
-      <button type="button" class="btn btn-secondary" id="nextStep">Próximo Passo</button>
+      <button type="button" class="btn btn-warning" id="generateAllBtn" disabled>Gerar Tudo</button>
+      <button type="button" class="btn btn-secondary" id="nextStep" disabled>Próximo Passo</button>
     </div>
 
     <!-- Tabela Top-Down -->
-    <div class="table-responsive mt-3" style="max-width: 500px;">
-      <table class="table table-bordered table-hover text-center align-middle" id="topDownTable" style="width: 500px;">
+    <div class="table-responsive mt-3" style="width: 700px;">
+      <table class="table table-bordered table-hover text-center align-middle" id="topDownTable" style="width: 100%;">
         <thead class="table-light">
           <tr>
             <th>Pilha</th>

@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const tbody = document.querySelector('#topDownTable tbody');
     const sentenceInput = document.getElementById('sentencaInput');
     const nextStep = document.getElementById('nextStep');
+    const generateAllBtn = document.getElementById('generateAllBtn')
 
     let stack = [];
     let entry = [];
@@ -18,23 +19,44 @@ document.addEventListener("DOMContentLoaded", function () {
     let index = 1;
 
     sentenceInput.addEventListener('change', () => {
+        clearStuff();
+    });
+
+    sentenceInput.addEventListener('input', () => {
+       clearStuff();
+    });
+
+    let clearStuff = () => {
         tbody.innerHTML = "";
         const input = sentenceInput.value.trim();
         index = 1;
-        if (!input) return;
-
+    
+        if (!input) {
+            renderRow(["$S"], ["-$"], "Nenhuma sentença definida.");
+            nextStep.disabled = true;
+            generateAllBtn.disabled = true;
+            return;
+        }
+    
         stack = ["$", "S"];
         entry = input.split("");
         entry.push("$");
         finished = false;
-
+    
         const top = stack[stack.length - 1];
         const current = entry[0];
         lastAction = parsingTable[top]?.[current] || `Erro em ${index} iterações.`;
         renderRow(stack, entry, lastAction);
-    });
+    
+        nextStep.disabled = false;
+        generateAllBtn.disabled = false;
+    }
 
     nextStep.addEventListener('click', () => {
+       step();
+    });
+
+    let step =() => {
         if (finished || !lastAction) return;
         index ++;
         const top = stack[stack.length - 1];
@@ -65,14 +87,21 @@ document.addEventListener("DOMContentLoaded", function () {
         const newTop = stack[stack.length - 1];
         const newCurrent = entry[0];
 
-        if (newTop === newCurrent) {
+        if (newTop === newCurrent && !/^[A-Z]$/.test(newTop)) {
             lastAction = `Lê '${newCurrent}'`;
         } else {
             lastAction = parsingTable[newTop]?.[newCurrent] || `Erro em ${index} iterações.`;
         }
-
+        if (lastAction == `Erro em ${index} iterações.`) {
+            return
+        }
+        if (lastAction === "-") {
+            lastAction = `Erro em ${index} iterações.`;
+            finished = true
+        }
+        
         renderRow(stack, entry, lastAction);
-    });
+    }
 
     function renderRow(stack, entry, action) {
         const tr = document.createElement('tr');
@@ -91,6 +120,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
         tbody.appendChild(tr);
     }
+
+    generateAllBtn.addEventListener('click', () => {
+        while (!finished){
+            step();
+        }
+    });
 
     renderRow(["$S"], ["-$"], "Nenhuma sentença definida.");
 });
