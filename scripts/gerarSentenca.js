@@ -80,6 +80,14 @@ document.addEventListener("DOMContentLoaded", function () {
     };
     document.querySelector('.useSentence').addEventListener('click', handleClick);
 
+    handleCancel = () => {
+        sentenceInput.value = sentenceInputModal.value;
+        sentenceInputModal.value = "";
+        sentence = "";
+        changeCurrentProduction("S");
+        resetAlert();
+    }
+
     let handleAlert = () => {
         alertModal.classList.remove('alert-info');
         alertModal.classList.add('alert-success');
