@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
     sentenceInput.addEventListener('change', () => {
         tbody.innerHTML = "";
         const input = sentenceInput.value.trim();
+        index = 1;
         if (!input) return;
 
         stack = ["$", "S"];
