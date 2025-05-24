@@ -32,16 +32,37 @@
     <h1 class="mb-4 text-center">Analisador Sintático</h1>
 
     <!-- Campo de entrada -->
-    <div class="mb-3 w-100" style="max-width: 500px;">
+    <div class="mb-3 w-100" style="max-width: 700px;">
       <label for="sentencaInput" class="form-label">Sentença</label>
       <input type="text" class="form-control" id="sentencaInput" placeholder="aabacab..."
         aria-label="Campo de entrada de sentença">
     </div>
 
-    <!-- Botão de gerar sentença -->
-    <div class="mb-4">
-      <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#sentencaModal">Gerar
-        Sentença</button>
+    <!-- Gerenciar sentença -->
+    <div class="container text-center mb-4">
+      <div class="row justify-content-center">
+        <div class="col-auto">
+          <button type="button" class="btn btn-outline-primary" id="RandomSentence" data-bs-toggle="modal" data-bs-target="#sentencaModal">
+            Derivar Sentença
+          </button>
+        </div>
+        <div class="col-auto">
+          <div class="btn-group">
+            <button type="button" class="btn btn-outline-info dropdown-toggle" data-bs-toggle="dropdown">
+              Gerar Sentença
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#" id="randomSentenceBtn">Aleatória</a></li>
+              <li><a class="dropdown-item" href="#" id="validSentenceBtn">Válida</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-auto">
+          <button type="button" class="btn btn-outline-danger" id="ClearBtn" onclick="location.reload();">
+            Limpar
+          </button>
+        </div>
+      </div>
     </div>
 
     <!-- Botão mostrar gramática -->
@@ -58,7 +79,7 @@
     </div>
 
     <!-- Tabela Top-Down -->
-    <div class="table-responsive mt-3" style="width: 700px;">
+    <div class="table-responsive mt-3" style="min-width: 700px;">
       <table class="table table-bordered table-hover text-center align-middle" id="topDownTable" style="width: 100%;">
         <thead class="table-light">
           <tr>
@@ -256,7 +277,7 @@
 
 
 
-          <script src="/scripts/gerarSentenca.js"></script>
+          <script type="module" src="/scripts/gerarSentenca.js"></script>
           <script src="/scripts/topDown.js"></script>
           <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO"

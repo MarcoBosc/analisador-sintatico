@@ -1,3 +1,5 @@
+import { derive } from './gerarSentencaValida.js';
+
 document.addEventListener("DOMContentLoaded", function () {
     // Seleciona todas as células da tabela dentro do modal
     const tabelaGramatica = document.querySelectorAll('#sentencaModal table tbody td');
@@ -7,6 +9,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const sentenceInputModal = document.getElementById('sentencaInputModal');
     const sentenceInput = document.getElementById('sentencaInput');
     const alertModal = document.getElementById('alertModal');
+    const randomSentenceBtn = document.getElementById('randomSentenceBtn');
+    const validSentenceBtn = document.getElementById('validSentenceBtn');
 
     tabelaGramatica.forEach(cell => {
         cell.addEventListener('click', function () {
@@ -80,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
     };
     document.querySelector('.useSentence').addEventListener('click', handleClick);
 
-    handleCancel = () => {
+    let handleCancel = () => {
         sentenceInput.value = sentenceInputModal.value;
         sentenceInputModal.value = "";
         sentence = "";
@@ -99,5 +103,26 @@ document.addEventListener("DOMContentLoaded", function () {
         alertModal.classList.add('alert-info');
         alertModal.textContent = 'Clique na tabela para realizar as derivações.';
     };
-    
+
+    let generateRandomSentence = () => {
+        const chars = ['a', 'b', 'c', 'd'];
+        const length = Math.floor(Math.random() * (12 - 5 + 1)) + 5; // entre 5 e 12
+        let sentence = 'a'; // sempre começa com 'a'
+      
+        for (let i = 1; i < length; i++) {
+          sentence += chars[Math.floor(Math.random() * chars.length)];
+        }
+      
+        sentenceInput.value = sentence;
+        sentenceInput.dispatchEvent(new Event('change'));
+      };
+      randomSentenceBtn.addEventListener('click', generateRandomSentence);
+
+      let generateValidSentence = () => {
+        const sentence = derive();
+        sentenceInput.value = sentence;
+        sentenceInput.dispatchEvent(new Event('change'));
+      };
+      validSentenceBtn.addEventListener('click', generateValidSentence);
 });
+
