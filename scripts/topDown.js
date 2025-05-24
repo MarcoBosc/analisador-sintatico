@@ -104,23 +104,44 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function renderRow(stack, entry, action) {
-        const tr = document.createElement('tr');
+        const row = document.createElement('tr');
+      
+        const stackCell = document.createElement('td');
+        const entryCell = document.createElement('td');
+        const actionCell = document.createElement('td');
+      
+        stackCell.textContent = stack.join("");
+        entryCell.textContent = entry.join("");
+        actionCell.textContent = action;
+      
+        row.appendChild(stackCell);
+        row.appendChild(entryCell);
+        row.appendChild(actionCell);
+      
+        // Lógica para cor de fundo
+        const isErro = action.toLowerCase().includes("erro");
+        const isSucesso = action.includes("reconhecida");
+      
+        if (isErro) {
+          stackCell.style.backgroundColor = '#da0f0f';
+          entryCell.style.backgroundColor = '#da0f0f';
+          actionCell.style.backgroundColor = '#da0f0f';
+          stackCell.style.color = "#fff";
+          entryCell.style.color = "#fff";
+          actionCell.style.color = "#fff";   
+        } else if (isSucesso) {
+          stackCell.style.backgroundColor = '#09ad2a';
+          entryCell.style.backgroundColor = '#09ad2a';
+          actionCell.style.backgroundColor = '#09ad2a';
+          stackCell.style.color = "#fff";
+          entryCell.style.color = "#fff";
+          actionCell.style.color = "#fff";   
+        }     
 
-        const tdPilha = document.createElement('td');
-        tdPilha.textContent = stack.join("");
-        tr.appendChild(tdPilha);
-
-        const tdEntrada = document.createElement('td');
-        tdEntrada.textContent = entry.join("");
-        tr.appendChild(tdEntrada);
-
-        const tdAcao = document.createElement('td');
-        tdAcao.textContent = action;
-        tr.appendChild(tdAcao);
-
-        tbody.appendChild(tr);
-    }
-
+        tbody.appendChild(row);
+      }
+      
+    
     generateAllBtn.addEventListener('click', () => {
         while (!finished){
             step();
